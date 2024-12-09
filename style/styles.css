@@ -1,0 +1,135 @@
+body {
+    background-image: url("../assets/images/cyberpunk.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    color: white;
+    background-color: lightgray;
+}
+
+.searchbar {
+    display: flex;
+    justify-content: center;
+}
+
+.searchbarBorder {
+    background-color: transparent;
+    color: white;
+    border: solid white 2px;
+    font-size: 24px;
+    padding: 0.5em;
+    padding-right: 0;
+}
+
+.size-96 {
+    font-size: 96px;
+}
+
+.size-150 {
+    font-size: 150px;
+}
+
+.size-36 {
+    font-size: 36px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.currentWeatherGrid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: fit-content;
+}
+
+.currentWeatherMiniGrid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    width: fit-content;
+}
+
+.middleGrid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+
+.row-2 {
+    grid-row: 2;
+}
+
+.col-1 {
+    grid-column: 1;
+}
+
+.span-3 {
+    grid-column: span 3;
+}
+
+.row-3 {
+    grid-row: 3;
+}
+
+.col-2 {
+    grid-column: 2;
+}
+
+.col-3 {
+    grid-column: 3;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.align-end {
+    align-items: end;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.justify-end {
+    justify-content: end;
+}
+
+.size-24 {
+    font-size: 24px;
+}
+
+.daysGrid {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    height: 319px;
+}
+
+.size-40 {
+    font-size: 40px;
+}
+
+.bgBlur {
+    backdrop-filter: blur(0.5em);
+}
+
+.sideBars {
+    border-right: solid white 1px;
+    margin: auto 0;
+    height: 249px;
+}
+
+.place-center {
+    place-content: center;
+}
+
+.m-0 {
+    margin: 0;
+}
