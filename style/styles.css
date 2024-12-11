@@ -1,13 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Gowun+Dodum&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 body {
     background-image: url("../assets/images/cyberpunk.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    background-position: center;
+    background-attachment: fixed;
     color: white;
     background-color: lightgray;
+    margin: 0;
+}
+
+.gowun-font {
+    font-family: "Gowun Dodum", sans-serif;
+}
+
+.georama-font {
+    font-family: "Georama", serif;
 }
 
 .searchbar {
+    margin-top: 3.5em;
     display: flex;
     justify-content: center;
 }
@@ -45,6 +59,10 @@ body {
     margin-top: 0;
 }
 
+.mt-1 {
+    margin-top: 1em;
+}
+
 .currentWeatherGrid {
     display: grid;
     grid-template-columns: repeat(3, auto);
@@ -60,6 +78,17 @@ body {
 .middleGrid {
     display: grid;
     grid-template-columns: repeat(2, auto);
+}
+
+.middleSizing {
+    margin: 0 auto;
+    width: 87%;
+    margin-top: 8em;
+}
+
+.date {
+    margin: 0 auto;
+    width: 87%;
 }
 
 .row-2 {
@@ -132,4 +161,8 @@ body {
 
 .m-0 {
     margin: 0;
+}
+
+.mb-2 {
+    margin-bottom: 2em;
 }
