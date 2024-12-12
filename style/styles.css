@@ -26,10 +26,76 @@ body {
     justify-content: center;
 }
 
-.searchbarBorder {
+.storedBox {
+    display: flex;
+    justify-content: center;
+    height: 2px;
+}
+
+.displayNone {
+    display: none;
+}
+
+.searchGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.pGrid {
+    margin: 0;
+    grid-column: 1;
+    display: grid;
+}
+
+.btnGrid {
+    margin: 0;
+    grid-column: 2;
+    display: grid;
+}
+
+#storedValueBtn {
     background-color: transparent;
+    border: none;
+}
+
+.removeBtn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    grid-column: 2;
+}
+
+.removeBtn:hover {
+    cursor: pointer;
+}
+
+.storedValue {
+    width: 299px;
+    background-color: transparent;
+    backdrop-filter: blur(0.5em);
+    color: white;
+    border: solid white 1px;
+    font-size: 20px;
+    padding: 0.5em;
+    padding-right: 0;
+    font-family: "Gowun Dodum", sans-serif;
+}
+
+.searchbarBorder {
+    width: 299px;
+    background-color: transparent;
+    backdrop-filter: blur(0.5em);
     color: white;
     border: solid white 2px;
+    font-size: 24px;
+    padding: 0.5em;
+    padding-right: 0;
+}
+
+.searchbarClickBorder {
+    background-color: black;
+    color: white;
+    border: solid white 1px;
     font-size: 24px;
     padding: 0.5em;
     padding-right: 0;
@@ -125,6 +191,10 @@ body {
 
 .align-center {
     align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
 }
 
 .justify-end {

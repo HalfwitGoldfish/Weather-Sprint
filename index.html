@@ -8,9 +8,23 @@
 </head>
 <body>
     
-    <div class="searchbar">
-        <div>
-            <input id="searchBar" type="text" class="searchbarBorder" placeholder="search a location">
+    <div>
+        <div class="searchbar">
+            <div>
+                <input id="searchBar" type="text" class="searchbarBorder" placeholder="search a location">
+            </div>
+        </div>
+        <div id="storedBox" class="displayNone">
+            <div>
+                <div class="storedValue searchGrid">
+                    <div class="d-flex justify-center">
+                        <p id="storedValue" class="pGrid"></p>
+                    </div>
+                    <div class="d-flex justify-center">
+                        <button id="storedValueBtn" class="btnGrid"></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -61,7 +75,7 @@
 
     <div>
         <div class="size-36 date">
-            <p class="mb-0 mt-1 gowun-font">Sunday, December 8</p>
+            <p id="currentDate" class="mb-0 mt-1 gowun-font">Sunday, December 8</p>
         </div>
     
         <div>

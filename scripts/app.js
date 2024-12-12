@@ -1,11 +1,16 @@
 import {APIKEY} from "./apikey.js";
+import {saveToLocalStorage, getFromLocalStorage, removeFromLocalStorage} from "./localStorage.js";
 
 const searchBar = document.getElementById("searchBar");
+const storedBox = document.getElementById("storedBox");
+const storedValue = document.getElementById("storedValue");
+const storedValueBtn = document.getElementById("storedValueBtn");
 const cityStateName = document.getElementById("cityStateName");
 const currentTemp = document.getElementById("currentTemp");
 const highLowTemp = document.getElementById("highLowTemp");
 const currentCityStateName = document.getElementById("currentCityStateName");
 const currentTime = document.getElementById("currentTime");
+const currentDate = document.getElementById("currentDate");
 const dayOneTemp = document.getElementById("dayOneTemp");
 const dayTwoTemp = document.getElementById("dayTwoTemp");
 const dayThreeTemp = document.getElementById("dayThreeTemp");
@@ -28,22 +33,13 @@ navigator.geolocation.getCurrentPosition(function(position){
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
 
-    currentWeatherStartAPI(lat, lon);
+    geocodingStartAPI(lat, lon);
+    fiveDayAPI(lat, lon);
 });
 
-async function currentWeatherStartAPI(lat, lon){
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY}&units=imperial`);
-    const startData = await response.json();
-
-    geocodingAPI(startData.name);
-    geocodingStartAPI(startData.name);
-
-    return startData;
-}
-
-async function geocodingStartAPI(currentCityName){
+async function geocodingStartAPI(lat, lon){
     const limit = 1;
-    const geocodingStart = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${currentCityName}&limit=${limit}&appid=${APIKEY}`);
+    const geocodingStart = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${APIKEY}`);
     const geocodingStartData = await geocodingStart.json();
 
     let startCity = geocodingStartData[0].name;
@@ -85,11 +81,23 @@ async function fiveDayAPI(lat, lon)
     let dayFourTxt = fiveDayData.list[25].dt_txt;
     let dayFiveTxt = fiveDayData.list[33].dt_txt;
 
+    let todaysDate = new Date();
     let dayOneDay = new Date(dayOneTxt);
     let dayTwoDay = new Date(dayTwoTxt);
     let dayThreeDay = new Date(dayThreeTxt);
     let dayFourDay = new Date(dayFourTxt);
     let dayFiveDay = new Date(dayFiveTxt);
+
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const monthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    dayOne.innerText = daysOfWeek[dayOneDay.getDay()];
+    dayTwo.innerText = daysOfWeek[dayTwoDay.getDay()];
+    dayThree.innerText = daysOfWeek[dayThreeDay.getDay()];
+    dayFour.innerText = daysOfWeek[dayFourDay.getDay()];
+    dayFive.innerText = daysOfWeek[dayFiveDay.getDay()];
+
+    currentDate.innerText = `${daysOfWeek[todaysDate.getDay()]}, ${monthsOfYear[todaysDate.getMonth()]} ${todaysDate.getDate()}`;
 
     let dayOneTempTxt = fiveDayData.list[1].main.temp.toString();
     let dayTwoTempTxt = fiveDayData.list[9].main.temp.toString();
@@ -102,14 +110,6 @@ async function fiveDayAPI(lat, lon)
     dayThreeTemp.innerText = `${dayThreeTempTxt.split(".")[0]}°`;
     dayFourTemp.innerText = `${dayFourTempTxt.split(".")[0]}°`;
     dayFiveTemp.innerText = `${dayFiveTempTxt.split(".")[0]}°`;
-
-    let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-    dayOne.innerText = daysOfWeek[dayOneDay.getDay()];
-    dayTwo.innerText = daysOfWeek[dayTwoDay.getDay()];
-    dayThree.innerText = daysOfWeek[dayThreeDay.getDay()];
-    dayFour.innerText = daysOfWeek[dayFourDay.getDay()];
-    dayFive.innerText = daysOfWeek[dayFiveDay.getDay()];
 
     let dayCurrentWeather = fiveDayData.list[0].weather[0].main;
     let dayOneWeather = fiveDayData.list[1].weather[0].main;
@@ -125,7 +125,6 @@ async function fiveDayAPI(lat, lon)
     weatherDayFour.src = `assets/images/${dayFourWeather}.png`;
     weatherDayFive.src = `assets/images/${dayFiveWeather}.png`;
     
-    console.log(fiveDayData);
     return fiveDayData;
 }
 
@@ -148,10 +147,49 @@ async function geocodingAPI(cityName)
     return geocodingData;
 }
 
+async function createElements(){
+    let previousSearches = getFromLocalStorage();
+
+    previousSearches.map(locations => {
+        let p = document.createElement("p");
+        p.innerText = locations;
+
+        let removeBtn = document.createElement("button");
+        removeBtn.className = "removeBtn";
+        removeBtn.innerText = "X";
+
+        removeBtn.addEventListener("click", () => {
+            removeFromLocalStorage(locations);
+            p.remove();
+        });
+
+        storedValue.appendChild(p);
+        storedValueBtn.appendChild(removeBtn);
+    });
+}
+
 searchBar.addEventListener("keydown", (event) => {
     if(event.key === "Enter"){
+        let searchbarValue = searchBar.value.toString();
+        let searchValueLower = searchbarValue.toLowerCase();
+        saveToLocalStorage(searchValueLower);
+        createElements();
         let cityName = searchBar.value;
         geocodingAPI(cityName);
         searchBar.value = "";
     }
+});
+
+searchBar.addEventListener("focus", () => {
+    searchBar.className = "searchbarClickBorder";
+    storedBox.className = "storedBox";
+    createElements();
+});
+
+searchBar.addEventListener("blur", () => {
+    searchBar.value = "";
+    searchBar.className = "searchbarBorder";
+    storedBox.className = "displayNone";
+    storedValue.innerText = "";
+    storedValueBtn.innerText = "";
 });
