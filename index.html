@@ -17,11 +17,21 @@
         <div id="storedBox" class="displayNone">
             <div>
                 <div class="storedValue searchGrid">
-                    <div class="d-flex justify-center">
-                        <p id="storedValue" class="pGrid"></p>
+                    <div class="fit place-center">
+                        <div>
+                            <button id="favoritesBtnBar">
+                                <div id="storedValueStar" class="starGrid">
+                                </div>
+                            </button>
+                        </div>
                     </div>
                     <div class="d-flex justify-center">
-                        <button id="storedValueBtn" class="btnGrid"></button>
+                        <div id="storedValue" class="pGrid"></div>
+                    </div>
+                    <div class="fit place-center">
+                        <div>
+                            <button id="storedValueBtn" class="btnGrid"></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -33,25 +43,27 @@
             <div class="d-flex align-center">
                 <div class="currentWeatherGrid">
                     <div class="span-3">
-                        <p id="cityStateName" class="size-96 m-0 georama-font">Stockton, CA</p>
+                        <p id="cityStateName" class="size-96 m-0 georama-font">..., ...</p>
                     </div>
                     <div class="d-flex">
                         <div>
-                            <p id="currentTemp" class="size-150 m-0 gowun-font">76°</p>
+                            <p id="currentTemp" class="size-150 m-0 gowun-font">...°</p>
                         </div>
                         <div class="d-flex align-center">
                             <img id="weatherCurrentDay" src="" alt="">
                         </div>
                         <div class="d-flex align-end size-24">
-                            <p id="highLowTemp" class="mb-2 gowun-font">High 79° - Low 63°</p>
+                            <p id="highLowTemp" class="mb-2 gowun-font">...° - ...°</p>
                         </div>
                     </div>
                     <div class="row-3 currentWeatherMiniGrid">
                         <div class="size-24 d-flex align-center">
-                            <p class="m-0 gowun-font">add to favorites</p>
+                            <p id="favoritesText" class="m-0 gowun-font">...</p>
                         </div>
                         <div>
-                            <img class="m-0" src="assets/images/Star-Empty.png" alt="star">
+                            <button id="favoritesBtn">
+                                <img id="favoritesStar" class="m-0" src="assets/images/emptyStar.png" alt="star">
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -63,10 +75,10 @@
                         <img class="m-0" src="assets/images/Pin.png" alt="">
                     </div>
                     <div class="size-36 text-center">
-                        <p id="currentCityStateName" class="gowun-font m-0">Elk Grove, CA</p>
+                        <p id="currentCityStateName" class="gowun-font m-0">..., ...</p>
                     </div>
                     <div class="size-36 text-center">
-                        <p id="currentTime" class="gowun-font m-0">11:30</p>
+                        <p id="currentTime" class="gowun-font m-0">...</p>
                     </div>
                 </div>
             </div>
@@ -75,44 +87,44 @@
 
     <div>
         <div class="size-36 date">
-            <p id="currentDate" class="mb-0 mt-1 gowun-font">Sunday, December 8</p>
+            <p id="currentDate" class="mb-0 mt-1 gowun-font">..., ... ...</p>
         </div>
     
         <div>
             <div class="daysGrid text-center bgBlur">
                 <div class="sideBars d-flex place-center align-center">
                     <div class="gowun-font">
-                        <p id="dayOne" class="size-36 m-0">Mon</p>
+                        <p id="dayOne" class="size-36 m-0">...</p>
                         <img id="weatherDayOne" class="m-0" src="" alt="">
-                        <p id="dayOneTemp" class="size-40 m-0">74°</p>
+                        <p id="dayOneTemp" class="size-40 m-0">...°</p>
                     </div>
                 </div>
                 <div class="sideBars d-flex place-center align-center">
                     <div class="gowun-font">
-                        <p id="dayTwo" class="size-36 m-0">Tues</p>
+                        <p id="dayTwo" class="size-36 m-0">...</p>
                         <img id="weatherDayTwo" class="m-0" src="" alt="">
-                        <p id="dayTwoTemp" class="size-40 m-0">74°</p>
+                        <p id="dayTwoTemp" class="size-40 m-0">...°</p>
                     </div>
                 </div>
                 <div class="sideBars d-flex place-center align-center">
                     <div class="gowun-font">
-                        <p id="dayThree" class="size-36 m-0">Wed</p>
+                        <p id="dayThree" class="size-36 m-0">...</p>
                         <img id="weatherDayThree" class="m-0" src="" alt="">
-                        <p id="dayThreeTemp" class="size-40 m-0">75°</p>
+                        <p id="dayThreeTemp" class="size-40 m-0">...°</p>
                     </div>
                 </div>
                 <div class="sideBars d-flex place-center align-center">
                     <div class="gowun-font">
-                        <p id="dayFour" class="size-36 m-0">Thurs</p>
+                        <p id="dayFour" class="size-36 m-0">...</p>
                         <img id="weatherDayFour" class="m-0" src="" alt="">
-                        <p id="dayFourTemp" class="size-40 m-0">79°</p>
+                        <p id="dayFourTemp" class="size-40 m-0">...°</p>
                     </div>
                 </div>
                 <div class="d-flex place-center align-center">
                     <div class="gowun-font">
-                        <p id="dayFive" class="size-36 m-0">Fri</p>
+                        <p id="dayFive" class="size-36 m-0">...</p>
                         <img id="weatherDayFive" class="m-0" src="" alt="">
-                        <p id="dayFiveTemp" class="size-40 m-0">83°</p>
+                        <p id="dayFiveTemp" class="size-40 m-0">...°</p>
                     </div>
                 </div>
             </div>

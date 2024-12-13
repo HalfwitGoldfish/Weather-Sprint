@@ -38,27 +38,26 @@ body {
 
 .searchGrid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, auto);
+}
+
+.starGrid {
+    margin: 0;
+    display: grid;
 }
 
 .pGrid {
     margin: 0;
-    grid-column: 1;
     display: grid;
 }
 
 .btnGrid {
     margin: 0;
-    grid-column: 2;
     display: grid;
 }
 
-#storedValueBtn {
-    background-color: transparent;
-    border: none;
-}
-
 .removeBtn {
+    height: fit-content;
     background-color: transparent;
     border: none;
     color: white;
@@ -76,7 +75,7 @@ body {
     color: white;
     border: solid white 1px;
     font-size: 20px;
-    padding: 0.5em;
+    padding: 12px;
     padding-right: 0;
     font-family: "Gowun Dodum", sans-serif;
 }
@@ -93,12 +92,72 @@ body {
 }
 
 .searchbarClickBorder {
+    width: 299px;
     background-color: black;
     color: white;
     border: solid white 1px;
     font-size: 24px;
-    padding: 0.5em;
+    padding: 12px;
     padding-right: 0;
+}
+
+.fit {
+    width: fit-content;
+}
+
+#favoriteCityName {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    text-align: left;
+}
+
+#favoritesStarBar {
+    background-color: transparent;
+    background-image: url("../assets/images/filledStar.png");
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+#favoriteDeleteBtn {
+    background-color: transparent;
+    background-image: url("../assets/images/delete.png");
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+#storedValueBtn {
+    background-color: transparent;
+    border: none;
+}
+
+#favoritesBtnBar {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#favoritesBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#favoritesText {
+    margin-right: 0.3em;
 }
 
 .size-96 {
@@ -115,6 +174,10 @@ body {
 
 .text-center {
     text-align: center;
+}
+
+.text-end {
+    text-align: end;
 }
 
 .mb-0 {

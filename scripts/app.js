@@ -3,12 +3,18 @@ import {saveToLocalStorage, getFromLocalStorage, removeFromLocalStorage} from ".
 
 const searchBar = document.getElementById("searchBar");
 const storedBox = document.getElementById("storedBox");
+const storedValueStar = document.getElementById("storedValueStar");
 const storedValue = document.getElementById("storedValue");
 const storedValueBtn = document.getElementById("storedValueBtn");
 const cityStateName = document.getElementById("cityStateName");
 const currentTemp = document.getElementById("currentTemp");
 const highLowTemp = document.getElementById("highLowTemp");
 const currentCityStateName = document.getElementById("currentCityStateName");
+const favoritesText = document.getElementById("favoritesText");
+const favoritesStar = document.getElementById("favoritesStar");
+const favoritesBtn = document.getElementById("favoritesBtn");
+const favoritesStarBar = document.getElementById("favoritesStarBar");
+const favoritesBtnBar = document.getElementById("favoritesBtnBar");
 const currentTime = document.getElementById("currentTime");
 const currentDate = document.getElementById("currentDate");
 const dayOneTemp = document.getElementById("dayOneTemp");
@@ -35,6 +41,7 @@ navigator.geolocation.getCurrentPosition(function(position){
 
     geocodingStartAPI(lat, lon);
     fiveDayAPI(lat, lon);
+    currentWeatherAPI(lat, lon);
 });
 
 async function geocodingStartAPI(lat, lon){
@@ -50,9 +57,38 @@ async function geocodingStartAPI(lat, lon){
     let minutes = time.getMinutes();
     currentTime.innerText = `${hours}:${minutes}`;
 
+    cityStateName.innerText = `${startCity}, ${startState}`;
     currentCityStateName.innerText = `${startCity}, ${startState}`;
 
+    previousSearches(startCity);
+
     return geocodingStartData;
+}
+
+async function previousSearches(startCity){
+    let previousSearches = getFromLocalStorage();
+    if(previousSearches.includes(startCity)){
+        favoritesText.innerText = "added to favorites!"
+        favoritesStar.src = "assets/images/filledStar.png";
+    }else if(!previousSearches.includes(startCity)){
+        favoritesText.innerText = "add to favorites"
+        favoritesStar.src = "assets/images/emptyStar.png";
+    }
+}
+
+async function favorites(cityName){
+    let previousSearches = getFromLocalStorage();
+    if(!previousSearches.includes(cityName)){
+        favoritesText.innerText = "added to favorites!"
+        favoritesStar.src = "assets/images/filledStar.png";
+
+        saveToLocalStorage(cityName);
+    }else if(previousSearches.includes(cityName)){
+        favoritesText.innerText = "add to favorites"
+        favoritesStar.src = "assets/images/emptyStar.png";
+
+        removeFromLocalStorage(cityName);
+    }
 }
 
 async function currentWeatherAPI(lat, lon)
@@ -119,11 +155,22 @@ async function fiveDayAPI(lat, lon)
     let dayFiveWeather = fiveDayData.list[33].weather[0].main;
 
     weatherCurrentDay.src = `assets/images/${dayCurrentWeather}.png`;
+    weatherCurrentDay.alt = `${dayCurrentWeather}`;
+
     weatherDayOne.src = `assets/images/${dayOneWeather}.png`;
+    weatherDayOne.alt = `${dayOneWeather}`;
+
     weatherDayTwo.src = `assets/images/${dayTwoWeather}.png`;
+    weatherDayTwo.alt = `${dayTwoWeather}`;
+
     weatherDayThree.src = `assets/images/${dayThreeWeather}.png`;
+    weatherDayThree.alt = `${dayThreeWeather}`;
+
     weatherDayFour.src = `assets/images/${dayFourWeather}.png`;
+    weatherDayFour.alt = `${dayFourWeather}`;
+
     weatherDayFive.src = `assets/images/${dayFiveWeather}.png`;
+    weatherDayFive.alt = `${dayFiveWeather}`;
     
     return fiveDayData;
 }
@@ -141,6 +188,8 @@ async function geocodingAPI(cityName)
 
     cityStateName.innerText = `${city}, ${state}`;
 
+    previousSearches(city);
+
     currentWeatherAPI(lat, lon);
     fiveDayAPI(lat, lon);
 
@@ -151,45 +200,67 @@ async function createElements(){
     let previousSearches = getFromLocalStorage();
 
     previousSearches.map(locations => {
-        let p = document.createElement("p");
-        p.innerText = locations;
+        let favoriteStar = document.createElement("button");
+        favoriteStar.id = "favoritesStarBar";
+        favoriteStar.src = "assets/images/filledStar.png";
 
+        let favoriteCityName = document.createElement("button");
+        favoriteCityName.innerText = locations;
+        favoriteCityName.id = "favoriteCityName";
+        
         let removeBtn = document.createElement("button");
+        removeBtn.id = "favoriteDeleteBtn";
         removeBtn.className = "removeBtn";
-        removeBtn.innerText = "X";
+        
+        favoriteCityName.addEventListener("click", () => {
+            geocodingAPI(favoriteCityName.innerText);
+            storedBox.className = "displayNone";
+            searchBar.className = "searchbarBorder";
+        });
+
+        favoriteStar.addEventListener("click", () => {
+           removeFromLocalStorage(locations);
+           favoriteStar.remove();
+           favoriteCityName.remove();
+           removeBtn.remove();
+        });
 
         removeBtn.addEventListener("click", () => {
             removeFromLocalStorage(locations);
-            p.remove();
+            favoriteStar.remove();
+            favoriteCityName.remove();
+            removeBtn.remove();
         });
 
-        storedValue.appendChild(p);
+        storedValueStar.appendChild(favoriteStar);
+        storedValue.appendChild(favoriteCityName);
         storedValueBtn.appendChild(removeBtn);
     });
 }
 
 searchBar.addEventListener("keydown", (event) => {
     if(event.key === "Enter"){
-        let searchbarValue = searchBar.value.toString();
-        let searchValueLower = searchbarValue.toLowerCase();
-        saveToLocalStorage(searchValueLower);
-        createElements();
         let cityName = searchBar.value;
         geocodingAPI(cityName);
         searchBar.value = "";
     }
 });
 
+favoritesBtn.addEventListener("click", () => {
+   storedValueStar.innerText = "";
+   storedValue.innerText = "";
+   storedValueBtn.innerText = "";
+   let currentCityName = cityStateName.innerText.split(",")[0];
+   let cityName = currentCityName;
+   favorites(cityName);
+   createElements();
+});
+
 searchBar.addEventListener("focus", () => {
+    storedValueStar.innerText = "";
+    storedValue.innerText = "";
+    storedValueBtn.innerText = "";
     searchBar.className = "searchbarClickBorder";
     storedBox.className = "storedBox";
     createElements();
-});
-
-searchBar.addEventListener("blur", () => {
-    searchBar.value = "";
-    searchBar.className = "searchbarBorder";
-    storedBox.className = "displayNone";
-    storedValue.innerText = "";
-    storedValueBtn.innerText = "";
 });
